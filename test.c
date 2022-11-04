@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 18:18:58 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/03 18:58:44 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/04 13:22:00 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define BUF_SIZE 4096
+#define BUF_SIZE 1
 
 int	main(void)
 {
@@ -24,15 +24,16 @@ int	main(void)
 	int	res;
 	char buf[BUF_SIZE + 1];
 	
-	fd = open("fd.txt", O_RDWR | O_CREAT, S_IRWXU);
+	fd = open("fd.txt", O_RDWR | O_CREAT, S_IRWXO);
 	if (fd == -1)
 		return (0);
 	
-	res = read (fd, buf, BUF_SIZE);
+	res = read (fd, buf, 5);
 	buf[res] = '\0';
+	printf("%d\n", res);
 	printf("%s\n", buf);
 	
-	printf("%d", fd);
+	// printf("%d", fd);
 	close(fd);
 	return (0);
 }
