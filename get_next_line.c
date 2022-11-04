@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/04 17:26:06 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/04 20:12:50 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 char *ft_strjoin(char *s1, char *s2)
 {
-	int	s1_len;
+	// int	s1_len;
 	size_t	sum_len;
 	int	i;
 	int	j;
@@ -35,7 +35,7 @@ char *ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	j = 0;
-	while (i <= sum_len)
+	while (i <= (int)sum_len)
 	{
 		res[i] = s2[j];
 		i++;
@@ -45,7 +45,7 @@ char *ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-int check (char *ch)
+int	check(char *ch)
 {
 	int i;
 
@@ -63,7 +63,7 @@ char	*get_next_line(int fd)
 {
 	char *res;
 	char *buf;
-	int i;
+	// int i;
 	int j;
 	int buf_size;
 
@@ -72,7 +72,6 @@ char	*get_next_line(int fd)
 	buf = malloc(2);
 	res = malloc(20);
 	
-	// read(fd, buf, buf_size);
 	while (1)
 	{
 		j = read(fd, buf, 1);
@@ -85,23 +84,22 @@ char	*get_next_line(int fd)
 	// printf("%s\n", strchr(buf, 'h'));
 	
 	// read(fd, buf, 6);
-	printf("%s\n", res);
+	res[strlen(res) + 1] = '\0';
 	// printf("%s", buf);
 	// j += read (fd, buf, buf_size);
 	// res[j] = '\0';
-	return (buf);
+	return (res);
 }
 
 int	main(void)
 {
 	int	fd;
-	int	i;
-	char *res;
+	// int	i;
+	// char *res;
 	
 	fd = open("test.txt", O_RDWR | O_CREAT, S_IRWXU);
 	// i = read(fd, res, 11);
 	// res[i] = '\0';
 	// printf("%s", res);
-	get_next_line(fd);
-	// printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 }
