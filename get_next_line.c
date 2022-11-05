@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/04 20:12:50 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/05 23:23:30 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,36 +59,41 @@ int	check(char *ch)
 	return (0);
 }
 
+char *cut_str(char *str)
+{
+	int i;
+	char *n_str;
+
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+	{
+		n_str[i] = str[i];
+		i++;
+	}
+	n_str[i] = '\0';
+	return (n_str);
+}
+
 char	*get_next_line(int fd)
 {
-	char *res;
+	char *line;
+	char *out;
 	char *buf;
-	// int i;
 	int j;
-	int buf_size;
-
-	j = 0;
-	buf_size = 5;
-	buf = malloc(2);
-	res = malloc(20);
 	
+	j = 0;
 	while (1)
 	{
-		j = read(fd, buf, 1);
+		j = read(fd, buf, 5);
 		if (j <= 0)
-			break ;
+			break;
+		out = ft_strjoin(out, buf);
 		if (check(buf))
 			break ;
-		res = ft_strjoin(res, buf);
 	}
-	// printf("%s\n", strchr(buf, 'h'));
-	
-	// read(fd, buf, 6);
-	res[strlen(res) + 1] = '\0';
-	// printf("%s", buf);
-	// j += read (fd, buf, buf_size);
-	// res[j] = '\0';
-	return (res);
+	line =  
+	out = strchr(out, '\n');
+	return (line);
 }
 
 int	main(void)
