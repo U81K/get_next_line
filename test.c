@@ -20,12 +20,23 @@
 
 #define BUF_SIZE 1
 
-char *cut_str(char *str)
+//to cut out to add it to line
+int	cut_count(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+char *cut_first(char *str)
 {
 	int i;
 	char *n_str;
 	
-	n_str = malloc(sizeof(char) * strlen(str) + 1);
+	n_str = malloc(sizeof(char) * cut_count(str) + 1);
 	i = 0;
 	while (str[i] != '\0' && str[i] != '\n')
 	{
@@ -36,10 +47,32 @@ char *cut_str(char *str)
 	return (n_str);
 }
 
+//cut out
+
+char *cut_last(char *str)
+{
+	int i;
+	int j;
+	int count;
+	char *res;
+	char *chr;
+
+	i = 0;
+	j = 0;
+	count = strlen(strchr(str, '\n')) - 1;
+	res = malloc(sizeof(char) * count + 1);
+	res = strchr(str, '\n') + 1;
+	res[count + 1] = '\0';
+	return (res);
+}
+
 int	main(void)
 {
-	char str[] = "hello wordl";
-	printf("%s", cut_str(str));
+	char str[] = "hello wor\ndld\ns";
+
+	printf("%s\n", cut_str(str));
+	printf("%s", cut_out(str));
+	// printf("%d", cut_count(str));
 	// printf("%s", strchr("helloZddfd", 'Z'));
 	return (0);
 }

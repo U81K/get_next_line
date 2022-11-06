@@ -74,6 +74,52 @@ char *cut_str(char *str)
 	return (n_str);
 }
 
+//to cut out to add it to line
+int	cut_count(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+char *cut_first(char *str)
+{
+	int i;
+	char *n_str;
+	
+	n_str = malloc(sizeof(char) * cut_count(str) + 1);
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+	{
+		n_str[i] = str[i];
+		i++;
+	}
+	n_str[i] = '\0';
+	return (n_str);
+}
+
+//cut out
+
+char *cut_last(char *str)
+{
+	int i;
+	int j;
+	int count;
+	char *res;
+	char *chr;
+
+	i = 0;
+	j = 0;
+	count = strlen(strchr(str, '\n')) - 1;
+	res = malloc(sizeof(char) * count + 1);
+	res = strchr(str, '\n') + 1;
+	res[count + 1] = '\0';
+	return (res);
+}
+
 char	*get_next_line(int fd)
 {
 	char *line;
@@ -87,12 +133,14 @@ char	*get_next_line(int fd)
 		j = read(fd, buf, 5);
 		if (j <= 0)
 			break;
-		out = ft_strjoin(out, buf);
 		if (check(buf))
 			break ;
+		out = ft_strjoin(out, buf);
 	}
-	line =  
-	out = strchr(out, '\n');
+	line = out;
+	line = ft_strjoin(line, cut_first(buf));
+	out = cut_last(buf);
+	// out = strchr(out, '\n');
 	return (line);
 }
 
@@ -102,7 +150,7 @@ int	main(void)
 	// int	i;
 	// char *res;
 	
-	fd = open("test.txt", O_RDWR | O_CREAT, S_IRWXU);
+	fd = open("test.txt", O_RDWR | O_CREAT);
 	// i = read(fd, res, 11);
 	// res[i] = '\0';
 	// printf("%s", res);
