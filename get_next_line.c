@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/05 23:23:30 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:33:19 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ int	check(char *ch)
 	return (0);
 }
 
-char *cut_str(char *str)
-{
-	int i;
-	char *n_str;
+// char *cut_str(char *str)
+// {
+// 	int i;
+// 	char *n_str;
 
-	i = 0;
-	while (str[i] != '\n' && str[i] != '\0')
-	{
-		n_str[i] = str[i];
-		i++;
-	}
-	n_str[i] = '\0';
-	return (n_str);
-}
+// 	i = 0;
+// 	while (str[i] != '\n' && str[i] != '\0')
+// 	{
+// 		n_str[i] = str[i];
+// 		i++;
+// 	}
+// 	n_str[i] = '\0';
+// 	return (n_str);
+// }
 
 //to cut out to add it to line
 int	cut_count(char *str)
@@ -123,11 +123,13 @@ char *cut_last(char *str)
 char	*get_next_line(int fd)
 {
 	char *line;
-	char *out;
+	static char *out;
 	char *buf;
 	int j;
 	
 	j = 0;
+	buf = malloc(5);
+	out = malloc(20);
 	while (1)
 	{
 		j = read(fd, buf, 5);
@@ -137,9 +139,10 @@ char	*get_next_line(int fd)
 			break ;
 		out = ft_strjoin(out, buf);
 	}
-	line = out;
-	line = ft_strjoin(line, cut_first(buf));
-	out = cut_last(buf);
+	line = ft_strjoin(out, cut_first(buf));
+	out = ft_strjoin(out, buf);
+	if (check(buf))
+		out = cut_last(out);
 	// out = strchr(out, '\n');
 	return (line);
 }
@@ -150,9 +153,11 @@ int	main(void)
 	// int	i;
 	// char *res;
 	
-	fd = open("test.txt", O_RDWR | O_CREAT);
+	fd = open("test.txt", O_RDWR | O_CREAT, S_IRWXU);
 	// i = read(fd, res, 11);
 	// res[i] = '\0';
 	// printf("%s", res);
-	printf("%s", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	// printf("%s\n", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
 }
