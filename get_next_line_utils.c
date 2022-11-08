@@ -109,30 +109,32 @@ int	cut_count(char *str)
 	return (i);
 }
 
-char *cut_first(char *str)
+char *cut_first(char *out)
 {
 	int i;
 	int j;
-	char *n_str;
+	char *line;
 	
-	n_str = malloc(sizeof(char) * cut_count(str) + 2);
+	if (!out)
+		return(NULL);
+	line = malloc(sizeof(char) * cut_count(out) + 2);
+	if (!line)
+		return (NULL);
 	i = 0;
-	if (!str)
-		return(NULL);
-	while (str[i] != '\0' && str[i] != '\n')
+	while (out[i] != '\0' && out[i] != '\n')
 	{
-		n_str[i] = str[i];
+		line[i] = out[i];
 		i++;
 	}
-	if (str[i] == '\0')
-		return(NULL);
-	if (str[i] == '\n')
+	// if (out[i] == '\0')
+	// 	return(NULL);
+	if (out[i] && out[i] == '\n')
 	{
-		n_str[i] = str[i];
+		line[i] = out[i];
 		i++;
 	}
-	n_str[i] = '\0';
-	return (n_str);
+	line[i] = '\0';
+	return (line);
 }
 
 //cut out
@@ -142,10 +144,12 @@ char *cut_last(char *buf)
 	int i;
 	int j;
 	int count;
-	char *res;
+	char *out;
 	
+	if (!check(buf))
+		return (NULL);
 	count = strlen(strchr(buf, '\n')) - 1;
-	res = malloc(sizeof(char) * count + 1);
+	out = malloc(sizeof(char) * count + 1);
 	i = 0;
 	while (buf[i] && buf[i] != '\n')
 		i++;
@@ -159,13 +163,13 @@ char *cut_last(char *buf)
 	j = 0;
 	while (buf[i])
 	{
-		res[j] = buf[i];
+		out[j] = buf[i];
 		i++;
 		j++;
 	}
-	res[j] = '\0';
+	out[j] = '\0';
 	free(buf);
-	return (res);
+	return (out);
 }
 
 // int main(void)
