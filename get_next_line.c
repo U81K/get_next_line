@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/07 15:19:04 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:33:01 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ char	*get_next_line(int fd)
 	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	j = 0;
-	buf = malloc(sizeof(char) * BUFFER_SIZE);
-	out = malloc(20);
+	line = NULL;
+	
+	j = 1;
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (1)
 	{
 		j = read(fd, buf, BUFFER_SIZE);
@@ -31,17 +32,21 @@ char	*get_next_line(int fd)
 			break;
 		buf[j] = '\0';
 		out = ft_strjoin(out, buf);
-		if (check(buf))
+		if (check(out))
 			break ;
 	}
+	if (!out)
+		return (NULL);
 	line = cut_first(out);
-	if (check(buf))
+	if (check(out))
 	{
-		out = cut_last(buf);
+		out = cut_last(out);
 	}
+	// if ()
 	// if (check(buf))
 	// 	out = cut_last(out);
 	// out = strchr(out, '\n');
+	free(buf);
 	return (line);
 }
 
@@ -58,6 +63,13 @@ int	main(void)
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
+	// close(fd);
+	// fd = open("test.txt", O_RDWR | O_CREAT, S_IRWXU);
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
+	close(fd);
 }
