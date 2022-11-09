@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 13:22:17 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/08 16:46:11 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:49:58 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,21 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1)
 		s1 = strdup("");
-	len_s1 = ft_strlen((char *)s1);
-	len_s2 = ft_strlen((char *)s2);
-	res = (char *)malloc(sizeof(char) * (len_s2 + len_s1 + 1));
+	len_s1 = ft_strlen(s1);
+	// printf("%zu", len_s1);
+	len_s2 = ft_strlen(s2);
+	res = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (!res)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i != len_s1)
 	{
-		res[i] = (char)s1[i];
+		res[i] = s1[i];
 		i++;
 	}
 	j = 0;
 	while (i != (len_s1 + len_s2))
-		res[i++] = (char)s2[j++];
+		res[i++] = s2[j++];
 	res[(len_s1 + len_s2)] = '\0';
 	free(s1);
 	return (res);
@@ -112,7 +113,7 @@ int	cut_count(char *str)
 char *cut_first(char *out)
 {
 	int i;
-	int j;
+	// int j;
 	char *line;
 	
 	if (!out)
@@ -158,6 +159,7 @@ char *cut_last(char *buf)
 	if (buf[i] == '\0')
 	{
 		free(buf);
+		free(out);
 		return (NULL);
 	}
 	j = 0;
@@ -168,12 +170,14 @@ char *cut_last(char *buf)
 		j++;
 	}
 	out[j] = '\0';
-	free(buf);
+	// free(buf);
 	return (out);
 }
 
 // int main(void)
 // {
+// 	char *s1;
 // 	// printf("%d\n", cut_count("abcd\n"));
-// 	printf("%s", cut_last("abcd\nefj"));
+// 	// printf("%s", cut_last("abcd\nefj"));
+// 	printf("%zu", ft_strlen("1"));
 // }
