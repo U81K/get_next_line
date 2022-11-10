@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/09 21:59:21 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:33:05 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*get_next_line(int fd)
 	static char *out;
 	char *buf;
 	int j;
+	// char *s;
 	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);

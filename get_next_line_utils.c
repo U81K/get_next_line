@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 13:22:17 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/09 21:49:58 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:39:28 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char *cut_first(char *out)
 		i++;
 	}
 	line[i] = '\0';
+	// free(out);
 	return (line);
 }
 
@@ -148,7 +149,10 @@ char *cut_last(char *buf)
 	char *out;
 	
 	if (!check(buf))
+	{
+		free(buf);
 		return (NULL);
+	}
 	count = strlen(strchr(buf, '\n')) - 1;
 	out = malloc(sizeof(char) * count + 1);
 	i = 0;
@@ -170,7 +174,7 @@ char *cut_last(char *buf)
 		j++;
 	}
 	out[j] = '\0';
-	// free(buf);
+	free(buf);
 	return (out);
 }
 
