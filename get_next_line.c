@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/16 16:34:12 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:49:25 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,6 @@ int	check_n(char *ch)
 		i++;
 	}
 	return (0);
-}
-
-char	*cut_first(char *out)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	while (out[i] && out[i] != '\n')
-		i++;
-	line = malloc(sizeof(char) * i + 2);
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (out[i] != '\0' && out[i] != '\n')
-	{
-		line[i] = out[i];
-		i++;
-	}
-	if (out[i] && out[i] == '\n')
-	{
-		line[i] = out[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
 }
 
 char	*read_to_out(int fd, char *buf, char *out)

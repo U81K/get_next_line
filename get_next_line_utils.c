@@ -6,13 +6,10 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 13:22:17 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/16 17:39:41 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:49:19 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "get_next_line.h"
 
 size_t	ft_strlen(char *ch)
@@ -25,6 +22,20 @@ size_t	ft_strlen(char *ch)
 	while (ch[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strchr(char *str, int c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != (char)c)
+	{
+		if (str[i] == '\0')
+			return (0);
+		i++;
+	}
+	return (&str[i]);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -54,6 +65,32 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
+char	*cut_first(char *out)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (out[i] && out[i] != '\n')
+		i++;
+	line = malloc(sizeof(char) * i + 2);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (out[i] != '\0' && out[i] != '\n')
+	{
+		line[i] = out[i];
+		i++;
+	}
+	if (out[i] && out[i] == '\n')
+	{
+		line[i] = out[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+
 char	*cut_last(char *out)
 {
 	char	*reserve;
@@ -71,7 +108,7 @@ char	*cut_last(char *out)
 		free(out);
 		return (NULL);
 	}
-	count = ft_strlen(strchr(out, '\n')) - 1;
+	count = ft_strlen(ft_strchr(out, '\n')) - 1;
 	reserve = malloc(sizeof(char) * count + 1);
 	j = 0;
 	while (out[i])
