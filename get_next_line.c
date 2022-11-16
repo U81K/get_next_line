@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/10 17:33:05 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:04:32 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,45 @@ char	*get_next_line(int fd)
 	static char *out;
 	char *buf;
 	int j;
-	// char *s;
 	
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd == 1 || fd == 2 || BUFFER_SIZE <= 0)
 		return (NULL);
-	// line = NULL;
-	
-	j = 1;
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
+	j = 1;
 	while (1)
 	{
 		j = read(fd, buf, BUFFER_SIZE);
+		if (j == - 1)
+		{
+			free(out);
+			free(buf);
+			out = NULL;
+			return (out);
+		}
 		if (j <= 0)
 			break;
 		buf[j] = '\0';
 		out = ft_strjoin(out, buf);
-		if (check(out))
+		if (check_n(out))
 			break ;
 	}
-	if (!out)
-	{
-		free(buf);
-		return (NULL);
-	}
 	free(buf);
+	if (!out)
+		return (NULL);
 	line = cut_first(out);
-	// s = out;
 	out = cut_last(out);
-	// free(out);
-	// printf("<%s>", out);
-	// printf("<%s>", out);
-	// free(s);
 	return (line);
 }
 
 // int	main(void)
 // {
 // 	int	fd;
-// 	int	i;
-// 	int	j;
-// 	int	k;
-// 	char *res;
+// 	// int	i;
+// 	// int	j;
+// 	// int	k;
+// 	// char *res;
 	
 // 	fd = open("test.txt", O_RDWR | O_CREAT);
 // 	// i = read(fd, res, 11);

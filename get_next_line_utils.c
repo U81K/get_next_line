@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 13:22:17 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/10 17:39:28 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:04:13 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 
-	if (!s1)
-		s1 = strdup("");
 	len_s1 = ft_strlen(s1);
-	// printf("%zu", len_s1);
 	len_s2 = ft_strlen(s2);
 	res = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (!res)
@@ -57,36 +54,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-// char *ft_strjoin(char *s1, char *s2)
-// {
-// 	size_t	sum_len;
-// 	size_t	i;
-// 	int	j;
-// 	char *res;
-
-// 	sum_len = ft_strlen(s1) + ft_strlen(s2);
-// 	res = malloc(sizeof(char) * sum_len + 1);
-// 	if (!res)
-// 		return(0);
-// 	i = 0;
-// 	while (s1 && s1[i] != '\0')
-// 	{
-// 		res[i] = s1[i];
-// 		i++;
-// 	}
-// 	j = 0;
-// 	while (s2 && s2[j] != '\0')
-// 	{
-// 		res[i] = s2[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	res[i] = '\0';
-// 	// free(s1);
-// 	return (res);
-// }
-
-int	check(char *ch)
+int	check_n(char *ch)
 {
 	int i;
 
@@ -100,25 +68,25 @@ int	check(char *ch)
 	return (0);
 }
 
-int	cut_count(char *str)
-{
-	int i;
+// int	cut_count(char *str)
+// {
+// 	int i;
 
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	return (i);
+// }
 
 char *cut_first(char *out)
 {
 	int i;
-	// int j;
 	char *line;
 	
 	if (!out)
 		return(NULL);
-	line = malloc(sizeof(char) * cut_count(out) + 2);
+	i = 0;
+	while (out[i] && out[i] != '\n')
+		i++;
+	line = malloc(sizeof(char) * i + 2);
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -127,19 +95,14 @@ char *cut_first(char *out)
 		line[i] = out[i];
 		i++;
 	}
-	// if (out[i] == '\0')
-	// 	return(NULL);
 	if (out[i] && out[i] == '\n')
 	{
 		line[i] = out[i];
 		i++;
 	}
 	line[i] = '\0';
-	// free(out);
 	return (line);
 }
-
-//cut out
 
 char *cut_last(char *buf)
 {
@@ -148,7 +111,7 @@ char *cut_last(char *buf)
 	int count;
 	char *out;
 	
-	if (!check(buf))
+	if (!check_n(buf))
 	{
 		free(buf);
 		return (NULL);
@@ -181,7 +144,7 @@ char *cut_last(char *buf)
 // int main(void)
 // {
 // 	char *s1;
-// 	// printf("%d\n", cut_count("abcd\n"));
+// 	printf("%s", cut_first("abcd\nfsfs"));
 // 	// printf("%s", cut_last("abcd\nefj"));
-// 	printf("%zu", ft_strlen("1"));
+// 	// printf("%zu", ft_strlen("1"));
 // }

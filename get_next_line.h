@@ -6,7 +6,7 @@
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:59 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/08 16:13:37 by bgannoun         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:56:25 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
+# ifndef BUFFER_SIZE
+#	define BUFFER_SIZE 5
+# endif
+
 char	*ft_strjoin(char *s1, char *s2);
-int	check(char *ch);
+int	check_n(char *ch);
 int	cut_count(char *str);
 char *cut_first(char *str);
 char *cut_last(char *str);
