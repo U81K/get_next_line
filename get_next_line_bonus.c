@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgannoun <bgannoun@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 20:04:54 by bgannoun          #+#    #+#             */
-/*   Updated: 2022/11/18 18:48:15 by bgannoun         ###   ########.fr       */
+/*   Created: 2022/11/18 15:02:00 by bgannoun          #+#    #+#             */
+/*   Updated: 2022/11/18 18:48:10 by bgannoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	check_n(char *ch)
 {
@@ -54,7 +54,7 @@ char	*read_to_out(int fd, char *buf, char *out)
 
 char	*get_next_line(int fd)
 {
-	static char	*out;
+	static char	*out[OPEN_MAX];
 	char		*line;
 	char		*buf;
 
@@ -63,10 +63,10 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	out = read_to_out(fd, buf, out);
-	if (!out)
+	out[fd] = read_to_out(fd, buf, out[fd]);
+	if (!out[fd])
 		return (NULL);
-	line = cut_first(out);
-	out = cut_last(out);
+	line = cut_first(out[fd]);
+	out[fd] = cut_last(out[fd]);
 	return (line);
 }
